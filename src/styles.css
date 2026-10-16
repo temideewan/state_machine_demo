@@ -1,0 +1,505 @@
+/* Stage theme: matches the talk's deck. The dark harness frames a light "app screen"
+   so the audience reads the product UI and its raw state side by side. */
+:root {
+  --stage: #16181d;
+  --stage-raised: #1f2229;
+  --stage-line: #30343d;
+  --ink-on-stage: #eeeae0;
+  --muted-on-stage: #9aa0aa;
+
+  --screen: #f5f6f8;
+  --screen-line: #dde1e7;
+  --ink: #1b1d22;
+  --ink-muted: #5d6370;
+  --action: #2f5fb3;
+
+  --valid: #6ea3f0;
+  --impossible: #e0773a;
+  --error-bg: #f7dccb;
+  --error-ink: #8a3510;
+  --success-bg: #dcebf9;
+  --success-ink: #1d4580;
+
+  --display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--stage);
+  color: var(--ink-on-stage);
+  font: 18px/1.5 var(--body);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--valid);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* ---------- Harness ---------- */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 32px 32px;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.topbar h1 {
+  font-size: 28px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-label {
+  color: var(--muted-on-stage);
+  font-size: 15px;
+}
+
+.segmented {
+  display: flex;
+  border: 1px solid var(--stage-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.segmented button {
+  border: 0;
+  background: transparent;
+  color: var(--ink-on-stage);
+  padding: 6px 14px;
+  font-size: 15px;
+}
+
+.segmented button + button {
+  border-left: 1px solid var(--stage-line);
+}
+
+.segmented button[aria-pressed='true'] {
+  background: var(--ink-on-stage);
+  color: var(--stage);
+  font-weight: 600;
+}
+
+.meter {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 15px;
+  color: var(--muted-on-stage);
+}
+
+.meter b {
+  color: var(--ink-on-stage);
+}
+
+.meter .hot,
+.meter .hot b {
+  color: var(--impossible);
+}
+
+.ghost {
+  border: 1px solid var(--stage-line);
+  background: transparent;
+  color: var(--ink-on-stage);
+  border-radius: 10px;
+  padding: 6px 16px;
+  font-size: 15px;
+}
+
+.subbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--stage-line);
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tabs button {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--muted-on-stage);
+  padding: 10px 16px;
+  font-family: var(--display);
+  font-size: 20px;
+}
+
+.tabs button[aria-selected='true'] {
+  color: var(--ink-on-stage);
+  border-bottom-color: var(--ink-on-stage);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted-on-stage);
+  font-size: 15px;
+}
+
+/* ---------- Stage ---------- */
+
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+
+.stage.single {
+  grid-template-columns: minmax(0, 1100px);
+  justify-content: center;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.panel > header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.panel h2 {
+  font-size: 22px;
+}
+
+.panel.live h2 {
+  color: var(--valid);
+}
+
+.panel code {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--muted-on-stage);
+}
+
+.demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ---------- The app screen (light) ---------- */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 420px;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--screen);
+  color: var(--ink);
+  color-scheme: light;
+}
+
+.screen-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.screen-head h3 {
+  font-size: 22px;
+}
+
+.screen button:not(.link) {
+  align-self: flex-start;
+  border: 0;
+  border-radius: 10px;
+  background: var(--action);
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.screen button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.screen button:focus-visible {
+  outline-color: var(--action);
+}
+
+.empty {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: var(--action);
+  font-weight: 600;
+}
+
+.spinner-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--screen-line);
+  border-top-color: var(--action);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.notice {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+.notice.success {
+  background: var(--success-bg);
+  color: var(--success-ink);
+}
+
+.link {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--screen-line);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--screen-line);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.who span {
+  color: var(--ink-muted);
+  font-size: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.field input {
+  font: inherit;
+  font-weight: 400;
+  padding: 10px 12px;
+  border: 1px solid var(--screen-line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+}
+
+/* ---------- Inspector: the memorable part ---------- */
+
+.inspector {
+  border: 2px solid var(--stage-line);
+  border-radius: 16px;
+  background: var(--stage-raised);
+  overflow: hidden;
+  transition: border-color 160ms ease;
+}
+
+.verdict {
+  margin: 0;
+  padding: 10px 16px;
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--valid);
+  border-bottom: 1px solid var(--stage-line);
+}
+
+.inspector.impossible {
+  border-color: var(--impossible);
+}
+
+.inspector.impossible .verdict {
+  background: var(--impossible);
+  color: var(--stage);
+}
+
+.inspector dl {
+  margin: 0;
+  padding: 8px 0;
+  font-family: var(--mono);
+  font-size: 15px;
+}
+
+.inspector dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 16px;
+}
+
+.inspector dt {
+  color: var(--muted-on-stage);
+}
+
+.inspector dd {
+  margin: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.inspector dl > .on dt,
+.inspector dl > .on dd {
+  color: var(--valid);
+  font-weight: 700;
+}
+
+.inspector.impossible dl > .on dt,
+.inspector.impossible dl > .on dd {
+  color: var(--impossible);
+}
+
+/* ---------- Presenter script ---------- */
+
+.script {
+  border-top: 1px solid var(--stage-line);
+  padding-top: 16px;
+}
+
+.script h2 {
+  font-size: 18px;
+  color: var(--muted-on-stage);
+  margin-bottom: 8px;
+}
+
+.script ol {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 4px;
+  color: var(--muted-on-stage);
+  font-size: 16px;
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1400px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .app {
+    padding: 16px;
+  }
+  .demo {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner-dot {
+    animation-duration: 2.4s;
+  }
+  .inspector {
+    transition: none;
+  }
+}
